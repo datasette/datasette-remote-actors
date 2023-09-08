@@ -10,7 +10,7 @@ classifiers = [
     "Framework :: Datasette",
 ]
 dependencies = [
-    "datasette",
+    "datasette>=1.0a6",
     "cachetools",
     "httpx",
 ]

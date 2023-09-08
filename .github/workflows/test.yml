@@ -22,7 +22,6 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -e '.[test]'
-        pip install https://github.com/simonw/datasette/archive/559f5390f6867ec6042aad395f24fc84fc48d10d.zip
     - name: Run tests
       run: |
         pytest

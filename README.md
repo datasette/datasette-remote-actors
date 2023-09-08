@@ -5,7 +5,7 @@
 [![Tests](https://github.com/datasette/datasette-remote-actors/workflows/Test/badge.svg)](https://github.com/datasette/datasette-remote-actors/actions?query=workflow%3ATest)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/datasette/datasette-remote-actors/blob/main/LICENSE)
 
-A Datasette plugin for fetching details of actors from a remote endpoint.
+A Datasette plugin for fetching details of actors from a remote endpoint. See [#2180](https://github.com/simonw/datasette/issues/2180) for details.
 
 ## Installation
 
@@ -13,11 +13,11 @@ A Datasette plugin for fetching details of actors from a remote endpoint.
 datasette install datasette-remote-actors
 ```
 
-## Necessary endpoint
+## API endpoint
 
-You must configure this plugin with a URL that returns JSON data about actors.
+You must configure this plugin with a URL to an endpoint that returns JSON data about actors.
 
-The URL should accept a comma separated list of IDs `?ids=1,2,3` and return a JSON dictionary that looks like this:
+The endpoint should accept a comma separated list of IDs `?ids=1,2,3` and return a JSON dictionary that looks like this:
 
 ```json
 {
