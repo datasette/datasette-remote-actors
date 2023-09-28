@@ -20,6 +20,7 @@ def actors_from_ids(datasette, actor_ids):
     to_fetch = []
     from_cache = {}
     for actor_id in actor_ids:
+        actor_id = str(actor_id)
         if cache is not None and actor_id in cache:
             from_cache[actor_id] = cache[actor_id]
         else:
@@ -36,7 +37,9 @@ def actors_from_ids(datasette, actor_ids):
             headers["Authorization"] = f"Bearer {token}"
         async with httpx.AsyncClient() as client:
             response = await client.get(
-                config["url"], params={"ids": ",".join(to_fetch)}, headers=headers
+                config["url"],
+                params={"ids": ",".join(map(str, to_fetch))},
+                headers=headers,
             )
             if response.status_code != 200:
                 return None

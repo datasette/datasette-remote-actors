@@ -13,7 +13,8 @@ def non_mocked_hosts():
 @pytest.mark.asyncio
 @pytest.mark.parametrize("token", (False, True))
 @pytest.mark.parametrize("ttl", (False, True))
-async def test_remote_actors(httpx_mock, token, ttl):
+@pytest.mark.parametrize("ids", (["1"], [1]))
+async def test_remote_actors(httpx_mock, token, ttl, ids):
     httpx_mock.add_response(
         url=ENDPOINT_URL,
         json={
@@ -29,7 +30,7 @@ async def test_remote_actors(httpx_mock, token, ttl):
         memory=True,
         metadata={"plugins": {"datasette-remote-actors": settings}},
     )
-    actors = await datasette.actors_from_ids(["1"])
+    actors = await datasette.actors_from_ids(ids)
     request = httpx_mock.get_request()
     assert request.url == ENDPOINT_URL
     if token:
@@ -41,7 +42,7 @@ async def test_remote_actors(httpx_mock, token, ttl):
     }
     assert actors == expected
     # Run a second time
-    actors = await datasette.actors_from_ids(["1"])
+    actors = await datasette.actors_from_ids(ids)
     assert actors == expected
     # With ttl should have run another request, otherwise should not
     num_requests = len(httpx_mock.get_requests())
