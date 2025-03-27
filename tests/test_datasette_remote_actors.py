@@ -20,6 +20,7 @@ async def test_remote_actors(httpx_mock, token, ttl, ids):
         json={
             "1": {"id": "1", "name": "Cleopatra"},
         },
+        is_reusable=True,
     )
     settings = {"url": ENDPOINT_URL}
     if token:
@@ -59,6 +60,7 @@ async def test_remote_actors_datasette_profiles(httpx_mock):
         json={
             "1": {"id": "1", "name": "Cleopatra"},
         },
+        is_reusable=True,
     )
     settings = {"url": ENDPOINT_URL, "datasette-profiles": True}
     datasette = Datasette(
