@@ -25,4 +25,4 @@ CI = "https://github.com/datasette/datasette-remote-actors/actions"
 remote_actors = "datasette_remote_actors"
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-httpx", "pytest-asyncio"]
+test = ["pytest", "pytest-httpx", "pytest-asyncio", "datasette-profiles>=0.1a3"]

@@ -50,6 +50,19 @@ The `url` is required, the others are optional.
 - `ttl` - the number of seconds to cache the result for a specific actor - omit this for no caching
 - `token` - an optional token to be sent in the `Authorization: Bearer xxx` header for authentication
 
+## Integration with datasette-profiles
+
+This plugin can also incorporate user-edited profile data from the [datasette-profiles](https://github.com/datasette/datasette-profiles) plugin. Values from that plugin will over-ride the values returned by the remote API.
+
+To enable that feature, install `datasette-profiles` and add `datasette-profiles: true` to this plugin's configuration.
+
+```yaml
+plugins:
+  datasette-remote-actors:
+    url: https://example.com/actors.json
+    datasette-profiles: true
+```
+
 ## Development
 
 To set up this plugin locally, first checkout the code. Then create a new virtual environment:
