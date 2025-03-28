@@ -13,7 +13,7 @@ def actors_from_ids(datasette, actor_ids):
             # Extend results with extra details from "profiles" table
             db = datasette.get_internal_database()
             profiles = {
-                row["id"]: dict(row)
+                str(row["id"]): dict(row)
                 for row in (
                     await db.execute(
                         "select * from profiles where id in ({})".format(
@@ -23,14 +23,13 @@ def actors_from_ids(datasette, actor_ids):
                     )
                 ).rows
             }
-            print("profiles", profiles, "actor_ids", actor_ids)
-            for actor_id, profile in profiles.items():
-                if actor_id in actors:
+            for actor_id in actors:
+                if str(actor_id) in profiles:
                     actors[actor_id].update(
                         {
                             key: value
-                            for key, value in profile.items()
-                            if value is not None
+                            for key, value in profiles[str(actor_id)].items()
+                            if value is not None and key != "id"
                         }
                     )
         return actors

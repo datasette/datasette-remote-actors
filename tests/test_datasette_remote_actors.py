@@ -14,11 +14,12 @@ def non_mocked_hosts():
 @pytest.mark.parametrize("token", (False, True))
 @pytest.mark.parametrize("ttl", (False, True))
 @pytest.mark.parametrize("ids", (["1"], [1]))
-async def test_remote_actors(httpx_mock, token, ttl, ids):
+@pytest.mark.parametrize("remote_id", ("1", 1))
+async def test_remote_actors(httpx_mock, token, ttl, ids, remote_id):
     httpx_mock.add_response(
         url=ENDPOINT_URL,
         json={
-            "1": {"id": "1", "name": "Cleopatra"},
+            "1": {"id": remote_id, "name": "Cleopatra"},
         },
         is_reusable=True,
     )
@@ -39,7 +40,7 @@ async def test_remote_actors(httpx_mock, token, ttl, ids):
     else:
         assert "authorization" not in request.headers
     expected = {
-        "1": {"id": "1", "name": "Cleopatra"},
+        "1": {"id": remote_id, "name": "Cleopatra"},
     }
     assert actors == expected
     # Run a second time
@@ -54,11 +55,12 @@ async def test_remote_actors(httpx_mock, token, ttl, ids):
 
 
 @pytest.mark.asyncio
-async def test_remote_actors_datasette_profiles(httpx_mock):
+@pytest.mark.parametrize("remote_id", ("1", 1))
+async def test_remote_actors_datasette_profiles(httpx_mock, remote_id):
     httpx_mock.add_response(
         url=ENDPOINT_URL,
         json={
-            "1": {"id": "1", "name": "Cleopatra"},
+            "1": {"id": remote_id, "name": "Cleopatra"},
         },
         is_reusable=True,
     )
@@ -67,11 +69,11 @@ async def test_remote_actors_datasette_profiles(httpx_mock):
         metadata={"plugins": {"datasette-remote-actors": settings}},
     )
     await datasette.invoke_startup()
-    actors = await datasette.actors_from_ids(["1"])
-    assert actors == {"1": {"id": "1", "name": "Cleopatra"}}
+    actors = await datasette.actors_from_ids([remote_id])
+    assert actors == {"1": {"id": remote_id, "name": "Cleopatra"}}
     # Now update `profiles` table
     db = datasette.get_internal_database()
     await db.execute_write("insert into profiles (id, name) values (1, 'Cleopatra 2')")
     # Run again
     actors2 = await datasette.actors_from_ids(["1"])
-    assert actors2 == {"1": {"id": "1", "name": "Cleopatra 2"}}
+    assert actors2 == {"1": {"id": remote_id, "name": "Cleopatra 2"}}
