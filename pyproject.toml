@@ -1,6 +1,6 @@
 [project]
 name = "datasette-remote-actors"
-version = "0.1a4"
+version = "0.1a5"
 description = "Datasette plugin for fetching details of actors from a remote endpoint"
 readme = "README.md"
 authors = [{name = "Simon Willison"}]
