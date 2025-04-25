@@ -7,6 +7,8 @@
 
 A Datasette plugin for fetching details of actors (users or API clients) from a remote, centralized JSON endpoint.
 
+See [Datasette issue #2180](https://github.com/simonw/datasette/issues/2180) for background on this plugin.
+
 ## Installation
 
 ```bash
@@ -15,7 +17,7 @@ datasette install datasette-remote-actors
 
 ## API Endpoint Requirements
 
-You must configure this plugin with a URL pointing to an API endpoint that provides actor information.
+Configure this plugin with a URL pointing to an API endpoint that provides actor information.
 
 This endpoint **must**:
 
