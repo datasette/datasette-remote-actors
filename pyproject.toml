@@ -1,6 +1,6 @@
 [project]
 name = "datasette-remote-actors"
-version = "0.1a5"
+version = "0.1a6"
 description = "Datasette plugin for fetching details of actors from a remote endpoint"
 readme = "README.md"
 authors = [{name = "Simon Willison"}]
@@ -10,7 +10,7 @@ classifiers = [
     "Framework :: Datasette",
 ]
 dependencies = [
-    "datasette>=1.0a6",
+    "datasette==1.0a19",
     "cachetools",
     "httpx",
 ]
