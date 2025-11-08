@@ -1,6 +1,5 @@
 from datasette.app import Datasette
 import pytest
-import json
 
 ENDPOINT_URL = "https://example.com/actors.json?ids=1"
 
